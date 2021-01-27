@@ -95,10 +95,38 @@ CALL delaiMoyen
 
 -- *************************************** 3) Mise en place d'une règle de gestion ****************************
 /*
-    Possibilité de restreindre l'accès des produits au client dès la connexion avec l'aide de la session, 
-cela serait une première partie mise en place pour permettre la restriction des coûts.
 
-    Pour tenir compte des coûts liés au transport vis à vis d'une commande d'un produit, je pense notamment au déclencheur.
-Il se déclencherait après qu'une commande soit insérer dans 'Orders',
-il vérifierait que tel produit commandé d'un fournisseur, soit égal au pays du client. 
+Pour tenir compte des coûts liés au transport, on vérifiera que pour chaque produit d’une commande, 
+le client réside dans le même pays que le fournisseur du même produit
+
 */
+
+CREATE TRIGGER commande_pays BEFORE INSERT ON
+    order_details 
+    FOR EACH ROW
+    
+BEGIN
+    DECLARE id_com INT; 
+    DECLARE id_ord INT; 
+    DECLARE paysProduit VARCHAR(20); 
+    DECLARE paysLivraison VARCHAR(20);
+
+    SET id_ord = NEW.OrderID;
+    SET id_com = NEW.ProductID; -- Je capte la nouvelle entrée et je le stock
+
+    -- Ici est stocké le pays d'origine du produit du vendeur
+    SET paysProduit =(SELECT suppliers.Country FROM suppliers
+        JOIN products ON products.SupplierID = suppliers.SupplierID
+        WHERE ProductID = id_com);
+
+    -- Ici est stocké le pays d'origine de la destination du produit 
+    SET paysLivraison =(SELECT orders.ShipCountry FROM orders
+    JOIN order_details ON orders.OrderID = order_details.OrderID
+    JOIN products ON order_details.ProductID = products.ProductID
+    WHERE order_details.ProductID = id_com AND orders.OrderID = id_ord);
+
+-- Maintenant on met en place la condition
+    IF paysProduit NOT LIKE paysLivraison THEN SIGNAL SQLSTATE '40000'
+    SET MESSAGE_TEXT = "Nous ne pouvons livrer ce produit dû au changement de pays";
+    END IF;
+END;

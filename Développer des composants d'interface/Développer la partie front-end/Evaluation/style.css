@@ -1,0 +1,61 @@
+.info {
+    font-style: italic;
+    margin-left: 2rem;
+    color: rgb(7, 80, 114);
+}
+
+h4 {
+    font-style: oblique;
+    font-weight: 60;
+    margin-left: 6rem;
+
+}
+
+.card {
+    border-radius: 10px;
+    margin: 2rem;
+
+}
+
+.card:hover {
+
+}
+
+.lead {
+    font-weight: 400;
+    text-decoration: underline;
+    text-shadow: 1px 0.5px;
+}
+
+.status {
+    font-style: italic;
+    font-weight: 500;
+}
+
+input[type="text"] {
+    margin: 1.5rem;
+    border-radius: 180px;
+    font-style: italic;
+}
+
+input[type="email"]{
+    margin: 1.5rem;
+    border-radius: 180px;
+    font-style: italic;
+}
+
+input[type="textarea"]{
+    margin: 1.5rem;
+    border-radius: 180px;
+    font-style: italic;
+}
+
+button {
+    margin: 3rem;
+    background-color: lightblue;
+    width: 250px;
+}
+
+button:hover {
+    background-color: blue;
+}

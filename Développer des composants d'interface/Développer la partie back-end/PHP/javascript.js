@@ -1,5 +1,5 @@
 document.getElementById("contact").addEventListener("submit", function(e) {
-    e.preventDefault();
+    /* e.preventDefault(); */
 
     var erreur;
     var societe = document.getElementById("societe");
@@ -29,9 +29,9 @@ document.getElementById("contact").addEventListener("submit", function(e) {
     }
 
     // Dans le cas ou le champ mail ne correspond pas au critère
-    if (mail.value.search("@") != 0) {
+/*     if (mail.value.search("@") != 0) {
         erreur = "Votre adresse mail n'est pas conforme à la réglementation";
-    } 
+    }  */
 
     // Validation du formulaire
     if (erreur) {

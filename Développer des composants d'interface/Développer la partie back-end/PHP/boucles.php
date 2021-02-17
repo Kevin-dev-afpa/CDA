@@ -6,7 +6,8 @@ while($nbImpair < 150){
     $nbImpair += 2;
 }
 
-    // 2. Écrire un programme qui écrit 500 fois la phrase Je dois faire des sauvegardes régulières de mes fichiers
+
+// 2. Écrire un programme qui écrit 500 fois la phrase Je dois faire des sauvegardes régulières de mes fichiers
 $phrase = "Je dois faire des sauvegardes régulières de mes fichiers";
 for ($nbPhrase = 0; $nbPhrase < 500; $nbPhrase++) {
     echo $phrase;
